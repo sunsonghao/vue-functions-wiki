@@ -37,6 +37,7 @@ combine = combine.reduce((prev, next) => {
 console.log(combine);
 
 export default new Router({
+  mode: 'history', // 这个对预渲染是必须的，否则几个页面一样
   routes: [
     {
       path: '/',

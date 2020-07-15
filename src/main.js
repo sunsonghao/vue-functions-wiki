@@ -13,5 +13,10 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  mounted () {
+    // You'll need this for renderAfterDocumentEvent.
+    // 预渲染插件中配置
+    document.dispatchEvent(new Event('render-event'))
+  }
 })

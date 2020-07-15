@@ -8,6 +8,14 @@
           href="https://vuejs.org"
           target="_blank"
         >
+          我是hello1
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://vuejs.org"
+          target="_blank"
+        >
           Core Docs
         </a>
       </li>

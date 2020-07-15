@@ -1,4 +1,4 @@
-# vue-require-context
+# vue-functions-wiki
 
 > A Vue.js project
 

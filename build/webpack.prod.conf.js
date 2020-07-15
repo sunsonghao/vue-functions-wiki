@@ -10,6 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+
 
 const env = require('../config/prod.env')
 
@@ -49,6 +52,21 @@ const webpackConfig = merge(baseWebpackConfig, {
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       allChunks: true,
+    }),
+    // 预渲染
+    // https://github.com/chrisvfritz/prerender-spa-plugin/blob/master/examples/vue2-webpack-router/webpack.config.js
+    new PrerenderSPAPlugin({
+      staticDir: path.join(__dirname, '../dist'),
+      routes: ['/', '/1'],
+
+      renderer: new Renderer({
+        // Optional - The name of the property to add to the window object with the contents of `inject`.
+        injectProperty: '__PRERENDER_INJECTED',
+        // Optional - Any values you'd like your app to have access to via `window.injectProperty`.
+        inject: {hello: 'world'}, // 注入某个属性
+        headless: false,
+        renderAfterDocumentEvent: 'render-event'
+      })
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
